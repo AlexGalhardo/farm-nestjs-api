@@ -8,39 +8,72 @@ datasource db {
 }
 
 model Producer {
-  id        String     @id @default(uuid())
-  name      String
-  cpfCnpj   String     @unique
-  properties Farm[]
-  createdAt DateTime   @default(now())
+  id String @id @default(uuid())
+
+  name    String
+  cpfCnpj String @unique @map("cpf_cnpj")
+
+  farms Farm[]
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  @@map("producers")
 }
 
 model Farm {
-  id               String    @id @default(uuid())
+  id String @id @default(uuid())
+
+  producerId String   @map("producer_id")
+  producer   Producer @relation(fields: [producerId], references: [id], onDelete: Cascade)
+
   name             String
   city             String
   state            String
-  totalArea        Float
-  agriculturalArea Float
-  arableArea      Float    @default(0)
-  vegetationArea   Float
-  producerId       String
-  producer         Producer  @relation(fields: [producerId], references: [id])
-  harvests         Harvest[]
+  totalArea        Int    @map("total_area")
+  agriculturalArea Int    @map("agricultural_area")
+  arableArea       Int    @default(0) @map("arable_area")
+  vegetationArea   Int    @map("vegetation_area")
+
+  harvests Harvest[]
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  @@map("farms")
 }
 
 model Harvest {
-  id         String   @id @default(uuid())
-  year       Int
-  propertyId String
-  property   Farm @relation(fields: [propertyId], references: [id])
-  crops      Crop[]
+  id String @id @default(uuid())
+
+  year Int
+
+  farmId String @map("property_id")
+  farm   Farm   @relation(fields: [farmId], references: [id], onDelete: Cascade)
+
+  crops Crop[]
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  @@map("harvests")
 }
 
 model Crop {
-  id         String   @id @default(uuid())
-  name       String
-  season     String
-  harvestId  String
-  harvest    Harvest @relation(fields: [harvestId], references: [id])
+  id String @id @default(uuid())
+
+  name          String
+  useArableArea Int
+
+  harvestId String  @map("harvest_id")
+  harvest   Harvest @relation(fields: [harvestId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  @@map("crops")
 }

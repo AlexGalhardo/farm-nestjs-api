@@ -1,0 +1,7 @@
+POST http://localhost:3000/harvests
+content-type: application/json
+
+{
+	"farmId": "a58c3e00-7276-4eb2-886d-c6ad4f0dbd99",
+	"year": 2025
+}

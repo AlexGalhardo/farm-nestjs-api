@@ -1,0 +1,7 @@
+POST http://localhost:3000/producers
+content-type: application/json
+
+{
+	"name": "Alex Galhardo",
+	"cpfCnpj": "24821612666"
+}

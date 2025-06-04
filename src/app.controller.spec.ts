@@ -29,6 +29,11 @@ describe("AppController", () => {
 		],
 	};
 
+	const expectedResponse = {
+		data: mockDashboardData,
+		success: true,
+	};
+
 	beforeEach(async () => {
 		const moduleRef: TestingModule = await Test.createTestingModule({
 			controllers: [AppController],
@@ -49,8 +54,7 @@ describe("AppController", () => {
 	describe("getDashboard", () => {
 		it("should return dashboard data from the service", async () => {
 			const result = await appController.getDashboard();
-			expect(result).toEqual(mockDashboardData);
-			// eslint-disable-next-line @typescript-eslint/unbound-method
+			expect(result).toEqual(expectedResponse);
 			expect(appService.getDashboard).toHaveBeenCalled();
 		});
 	});
