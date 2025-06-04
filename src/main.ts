@@ -1,7 +1,7 @@
 import { NestFactory } from "@nestjs/core";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import helmet from "helmet";
-import { AppModule } from "./app.module";
+import { AppModule } from "./domain/dashboard/app.module";
 
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule);
@@ -13,19 +13,19 @@ async function bootstrap() {
 	app.use(helmet());
 
 	const config = new DocumentBuilder()
-		.setTitle("Brain Agriculture API")
-		.setDescription("API para gestão de produtores rurais")
+		.setTitle("Farm Nestjs API")
+		.setDescription("API for managing rural producers")
 		.setVersion("1.0")
 		.build();
 
 	const document = SwaggerModule.createDocument(app, config);
-	SwaggerModule.setup("api", app, document);
+	SwaggerModule.setup("api-docs", app, document);
 
 	await app.listen(process.env.PORT ?? 3000);
-	console.log("Brain Agriculture API Server running on localhost:3000");
+	console.log("Farm NESTJS API Server running on http://localhost:3000");
 }
 
 bootstrap().catch((err) => {
-	console.error("Failed to start application:", err);
+	console.error("Failed to start Farm NESTJS API Server: ", err);
 	process.exit(1);
 });

@@ -1,6 +1,6 @@
 import { BadRequestException, Controller, Get, Logger } from "@nestjs/common";
+import { getErrorMessage, getErrorStack } from "../../utils/functions";
 import { AppService } from "./app.service";
-import { getErrorMessage, getErrorStack } from "./utils/functions";
 
 @Controller()
 export class AppController {

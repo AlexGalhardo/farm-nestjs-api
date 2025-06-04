@@ -25,7 +25,6 @@ describe("ProducerController", () => {
 
 		controller = module.get<ProducerController>(ProducerController);
 
-		// Spy on logger.error to avoid cluttering test output and to assert errors were logged
 		loggerErrorSpy = jest.spyOn(Logger.prototype, "error").mockImplementation(() => {});
 	});
 

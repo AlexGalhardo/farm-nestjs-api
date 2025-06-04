@@ -1,8 +1,35 @@
 <h1 align="center">Farm NestJS API</h1>
 
-## Introduction
+## Objectives and Bussiness Rules
 
-- A simple project creating a CRUD REST API to manage farms
+Manage the registration of rural producers with the following data:
+
+- CPF or CNPJ (Brazilian individual or company taxpayer number)  
+- Producer's name  
+- Farm (property) name  
+- City  
+- State  
+- Total farm area (in hectares)  
+- Arable area (in hectares)  
+- Vegetation area (in hectares)  
+- Harvests (e.g., Harvest 2021, Harvest 2022)  
+- Planted crops (e.g., Soybean in Harvest 2021, Corn in Harvest 2021, Coffee in Harvest 2022)
+
+### **Business Requirements**
+
+1. Allow the creation, editing, and deletion of rural producers.  
+2. Validate the CPF or CNPJ provided by the user.  
+3. Ensure that the sum of the arable area and vegetation area does not exceed the total farm area.  
+4. Allow the registration of multiple crops per producer's farm.  
+5. A producer can be associated with 0, 1, or more rural properties.  
+6. A rural property can have 0, 1, or more crops planted per harvest.  
+7. Display a dashboard with:
+   - Total number of registered farms.  
+   - Total registered area (in hectares).  
+   - Pie charts:
+     - By state.  
+     - By planted crop.  
+     - By land use (arable area and vegetation).
 
 ## Technologies
 
@@ -88,8 +115,11 @@ npm run test:e2e
 
 ## API Requests
 
-- You can see the HTTP Requests references inside folder [rest-client/](rest-client/)
-- You can also see  API documentation in: <http://localhost:3000/docs>
+- You can see and use the HTTP Requests references inside folder [rest-client/](rest-client/)
+
+## OpenAPI Documentation (using Swagger)
+
+- You can also see  API documentation in: <http://localhost:3000/api-docs>
 
 ## License
 

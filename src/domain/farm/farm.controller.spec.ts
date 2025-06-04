@@ -51,27 +51,6 @@ describe("FarmController", () => {
 			expect(response).toEqual({ success: true, data: createdFarm });
 			expect(mockFarmService.create).toHaveBeenCalledWith(dto);
 		});
-
-		// it("should handle errors and throw BadRequestException", async () => {
-		// 	const dto: CreateFarmDto = {
-		// 		name: "Farm 1",
-		// 		city: "City A",
-		// 		state: "State B",
-		// 		totalArea: 1000,
-		// 		agriculturalArea: 800,
-		// 		vegetationArea: 200,
-		// 		producerId: "producer-1",
-		// 	};
-		// 	const error = new Error("Create failed");
-
-		// 	mockFarmService.create.mockRejectedValue(error);
-
-		// 	await expect(controller.create(dto)).rejects.toThrow(BadRequestException);
-		// 	expect(loggerErrorSpy).toHaveBeenCalledWith(
-		// 		"Error creating farm",
-		// 		expect.stringContaining("Error: Create failed"),
-		// 	);
-		// });
 	});
 
 	describe("findAll", () => {

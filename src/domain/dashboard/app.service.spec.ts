@@ -1,7 +1,7 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { DeepMockProxy, mockDeep } from "jest-mock-extended";
+import { RepositoryService } from "../../repository/repository.service";
 import { AppService } from "./app.service";
-import { RepositoryService } from "./repository/repository.service";
 
 describe("AppService", () => {
 	let service: AppService;
@@ -17,12 +17,10 @@ describe("AppService", () => {
 	});
 
 	it("should return dashboard data correctly", async () => {
-		// mocks de contagem
 		prisma.producer.count.mockResolvedValue(5);
 		prisma.farm.count.mockResolvedValue(3);
 		prisma.crop.count.mockResolvedValue(10);
 
-		// mocks de agregação de áreas
 		prisma.farm.aggregate
 			.mockResolvedValueOnce({
 				_sum: { arableArea: 100, vegetationArea: 0 },
@@ -39,7 +37,6 @@ describe("AppService", () => {
 				_max: {},
 			});
 
-		// mocks de groupBy - estado e cidade (primeira chamada)
 		prisma.farm.groupBy
 			.mockResolvedValueOnce([
 				{
@@ -139,7 +136,6 @@ describe("AppService", () => {
 				},
 			])
 			.mockResolvedValueOnce([
-				// segunda chamada do groupBy (provavelmente similar)
 				{
 					state: "SP",
 					city: "",
@@ -237,7 +233,6 @@ describe("AppService", () => {
 				},
 			]);
 
-		// mock crops grouped
 		prisma.crop.groupBy.mockResolvedValue([
 			{
 				id: "1",
@@ -269,7 +264,6 @@ describe("AppService", () => {
 			},
 		]);
 
-		// mock producers with farms and harvests
 		prisma.producer.findMany.mockResolvedValue([
 			{
 				id: "p1",
@@ -337,7 +331,6 @@ describe("AppService", () => {
 				totalArea: 90,
 				totalArablePercentage: 66.67,
 				totalVegetationPercentage: 33.33,
-				// Só confirmar que tem farms e allCrops, não o conteúdo
 				farms: expect.any(Array),
 				allCrops: expect.any(Array),
 			}),

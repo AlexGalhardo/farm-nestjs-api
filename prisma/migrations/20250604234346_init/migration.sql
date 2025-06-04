@@ -4,6 +4,8 @@ CREATE TABLE "producers" (
     "name" TEXT NOT NULL,
     "cpf_cnpj" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
+    "deleted_at" TIMESTAMP(3),
 
     CONSTRAINT "producers_pkey" PRIMARY KEY ("id")
 );
@@ -11,14 +13,17 @@ CREATE TABLE "producers" (
 -- CreateTable
 CREATE TABLE "farms" (
     "id" TEXT NOT NULL,
+    "producer_id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "city" TEXT NOT NULL,
     "state" TEXT NOT NULL,
-    "total_area" DOUBLE PRECISION NOT NULL,
-    "agricultural_area" DOUBLE PRECISION NOT NULL,
-    "arable_area" DOUBLE PRECISION NOT NULL DEFAULT 0,
-    "vegetation_area" DOUBLE PRECISION NOT NULL,
-    "producer_id" TEXT NOT NULL,
+    "total_area" INTEGER NOT NULL,
+    "agricultural_area" INTEGER NOT NULL,
+    "arable_area" INTEGER NOT NULL DEFAULT 0,
+    "vegetation_area" INTEGER NOT NULL,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
+    "deleted_at" TIMESTAMP(3),
 
     CONSTRAINT "farms_pkey" PRIMARY KEY ("id")
 );
@@ -28,6 +33,9 @@ CREATE TABLE "harvests" (
     "id" TEXT NOT NULL,
     "year" INTEGER NOT NULL,
     "property_id" TEXT NOT NULL,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
+    "deleted_at" TIMESTAMP(3),
 
     CONSTRAINT "harvests_pkey" PRIMARY KEY ("id")
 );
@@ -36,8 +44,11 @@ CREATE TABLE "harvests" (
 CREATE TABLE "crops" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "season" TEXT NOT NULL,
+    "useArableArea" INTEGER NOT NULL,
     "harvest_id" TEXT NOT NULL,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
+    "deleted_at" TIMESTAMP(3),
 
     CONSTRAINT "crops_pkey" PRIMARY KEY ("id")
 );
