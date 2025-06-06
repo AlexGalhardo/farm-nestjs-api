@@ -99,6 +99,67 @@ b. Testing build server locally
 npm run start
 ```
 
+## API Requests and Docs
+
+- You can see and use the HTTP Requests references inside folder [rest-client/](rest-client/)
+- OpenAPI Documentation (using Swagger)
+   - You can also see  API documentation in: <http://localhost:3000/api-docs>
+
+### Example
+
+```
+1. Create producer first
+
+POST http://localhost:3000/producers
+content-type: application/json
+
+body
+{
+ "name": "Alex Galhardo",
+ "cpfCnpj": "24821612666"
+}
+
+2. Create farm next using producer id created previously
+
+POST http://localhost:3000/farms
+content-type: application/json
+
+body
+{
+ "producerId": "80f481c5-c52c-4c11-abe8-f2e777335924",
+ "name": "Fazendinha 2",
+ "city": "Araçatuba",
+ "state": "São Paulo",
+ "totalArea": 100,
+ "vegetationArea": 30,
+ "agriculturalArea": 70
+}
+
+3. Create harvest connected to farm id created previously
+
+POST http://localhost:3000/harvests
+content-type: application/json
+
+body
+{
+ "farmId": "a58c3e00-7276-4eb2-886d-c6ad4f0dbd99",
+ "year": 2025
+}
+
+4. Last, create crop connected to farm and harvest id created previously 
+
+POST http://localhost:3000/crops
+content-type: application/json
+
+body
+{
+ "farmId": "a58c3e00-7276-4eb2-886d-c6ad4f0dbd99",
+ "harvestId": "b65a0694-9878-45d0-894b-5d62047256fe",
+ "name": "Soja",
+ "useArableArea": 10
+}
+```
+
 ## Tests
 
 a. Run all unit mocked tests
@@ -113,13 +174,9 @@ b. Run all end to end tests
 npm run test:e2e
 ```
 
-## API Requests
+<img width="930" alt="Screenshot 2025-06-06 at 14 25 07" src="https://github.com/user-attachments/assets/a68c9e62-ee3c-4340-a649-1deb14194a5a" />
 
-- You can see and use the HTTP Requests references inside folder [rest-client/](rest-client/)
-
-## OpenAPI Documentation (using Swagger)
-
-- You can also see  API documentation in: <http://localhost:3000/api-docs>
+<img width="924" alt="Screenshot 2025-06-06 at 14 25 22" src="https://github.com/user-attachments/assets/40ffbe88-f249-44db-a533-0602594d5bcc" />
 
 ## License
 

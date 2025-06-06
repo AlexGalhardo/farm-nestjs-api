@@ -13,17 +13,17 @@ services:
     networks:
       - app-network
 
-  api:
-    build: .
-    ports:
-      - '3000:3000'
-    depends_on:
-      - postgres_db
-    environment:
-      DATABASE_URL: postgres://postgres:postgres@postgres_db:5432/farm_nestjs_api
-      NODE_ENV: development
-    networks:
-      - app-network
+  # api:
+  #   build: .
+  #   ports:
+  #     - '3000:3000'
+  #   depends_on:
+  #     - postgres_db
+  #   environment:
+  #     DATABASE_URL: postgres://postgres:postgres@postgres_db:5432/farm_nestjs_api
+  #     NODE_ENV: development
+  #   networks:
+  #     - app-network
 
 volumes:
   pgdata:

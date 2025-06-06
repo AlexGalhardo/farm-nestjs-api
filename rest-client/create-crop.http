@@ -2,8 +2,8 @@ POST http://localhost:3000/crops
 content-type: application/json
 
 {
+	"farmId": "a58c3e00-7276-4eb2-886d-c6ad4f0dbd99",
 	"harvestId": "b65a0694-9878-45d0-894b-5d62047256fe",
 	"name": "Soja",
-	"useArableArea": 10,
-	"farmId": "a58c3e00-7276-4eb2-886d-c6ad4f0dbd99"
+	"useArableArea": 10
 }

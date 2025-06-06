@@ -1,5 +1,4 @@
-import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
-import { ZodError } from "zod";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { RepositoryService } from "../../repository/repository.service";
 import { CreateProducerDto } from "./dto/create-producer.dto";
 import { UpdateProducerDto } from "./dto/update-producer.dto";
@@ -11,22 +10,10 @@ export class ProducerService {
 	constructor(private readonly repository: RepositoryService) {}
 
 	async create(dto: CreateProducerDto) {
-		try {
-			const data = createProducerSchema.parse(dto);
-			return await this.repository.producer.create({
-				data,
-			});
-		} catch (err: unknown) {
-			if (err instanceof ZodError) {
-				throw new BadRequestException(
-					err.errors.map((e) => ({
-						path: e.path.join("."),
-						message: e.message,
-					})),
-				);
-			}
-			throw err;
-		}
+		const data = createProducerSchema.parse(dto);
+		return await this.repository.producer.create({
+			data,
+		});
 	}
 
 	async findAll() {
@@ -58,23 +45,11 @@ export class ProducerService {
 	}
 
 	async update(id: string, dto: UpdateProducerDto) {
-		try {
-			const data = updateProducerSchema.parse(dto);
-			return await this.repository.producer.update({
-				where: { id },
-				data,
-			});
-		} catch (err: unknown) {
-			if (err instanceof ZodError) {
-				throw new BadRequestException(
-					err.errors.map((e) => ({
-						path: e.path.join("."),
-						message: e.message,
-					})),
-				);
-			}
-			throw err;
-		}
+		const data = updateProducerSchema.parse(dto);
+		return await this.repository.producer.update({
+			where: { id },
+			data,
+		});
 	}
 
 	async remove(id: string) {
@@ -84,5 +59,7 @@ export class ProducerService {
 				deletedAt: new Date(),
 			},
 		});
+
+		// return await this.repository.producer.delete({ where: { id } });
 	}
 }

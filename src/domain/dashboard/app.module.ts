@@ -20,7 +20,7 @@ import { AppService } from "./app.service";
 		ThrottlerModule.forRoot([
 			{
 				ttl: 1000,
-				limit: 1,
+				limit: 100,
 			},
 		]),
 		RepositoryModule,

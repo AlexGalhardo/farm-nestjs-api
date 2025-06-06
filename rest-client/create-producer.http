@@ -1,7 +1,62 @@
+1. Create producer first
+
 POST http://localhost:3000/producers
 content-type: application/json
 
 {
 	"name": "Alex Galhardo",
 	"cpfCnpj": "24821612666"
+}
+
+response
+{
+  "success": true,
+  "data": {
+    "id": "e510cbcd-37c8-46f1-97fa-ca82d266b759",
+    "name": "Alex Galhardo",
+    "cpfCnpj": "24821612666",
+    "createdAt": "2025-06-06T16:50:20.135Z",
+    "updatedAt": "2025-06-06T16:50:20.135Z",
+    "deletedAt": null
+  }
+}
+
+2. Create farm next using producer id created previously
+
+POST http://localhost:3000/farms
+content-type: application/json
+
+response
+{
+	"producerId": "80f481c5-c52c-4c11-abe8-f2e777335924",
+	"name": "Fazendinha 2",
+	"city": "Araçatuba",
+	"state": "São Paulo",
+	"totalArea": 100,
+	"vegetationArea": 30,
+	"agriculturalArea": 70
+}
+
+3. Create harvest connected to farm id created previously
+
+POST http://localhost:3000/harvests
+content-type: application/json
+
+response
+{
+	"farmId": "a58c3e00-7276-4eb2-886d-c6ad4f0dbd99",
+	"year": 2025
+}
+
+4. Last, create crop connected to farm and harvest id created previously 
+
+POST http://localhost:3000/crops
+content-type: application/json
+
+response
+{
+	"farmId": "a58c3e00-7276-4eb2-886d-c6ad4f0dbd99",
+	"harvestId": "b65a0694-9878-45d0-894b-5d62047256fe",
+	"name": "Soja",
+	"useArableArea": 10
 }

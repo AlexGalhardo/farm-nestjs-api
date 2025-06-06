@@ -15,7 +15,7 @@ export class ProducerController {
 		try {
 			const result = await this.producerService.create(dto);
 			return { success: true, data: result };
-		} catch (error: unknown) {
+		} catch (error: any) {
 			this.logger.error("Error creating producer", getErrorStack(error));
 			throw new BadRequestException({
 				success: false,
