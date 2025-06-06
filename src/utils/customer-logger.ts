@@ -1,24 +1,24 @@
-import { LoggerService } from '@nestjs/common';
-import pino from 'pino';
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from "node:fs";
+import * as path from "node:path";
+import { LoggerService } from "@nestjs/common";
+import pino from "pino";
 
-const logDir = path.join(__dirname, '../../logs');
+const logDir = path.join(__dirname, "../../logs");
 
 if (!fs.existsSync(logDir)) {
 	fs.mkdirSync(logDir, { recursive: true });
 }
 
-const errorStream = pino.destination(path.join(logDir, 'errors.json'));
-const warnStream = pino.destination(path.join(logDir, 'warnings.json'));
-const infoStream = pino.destination(path.join(logDir, 'info.json'));
-const debugStream = pino.destination(path.join(logDir, 'debug.json'));
+const errorStream = pino.destination(path.join(logDir, "errors.json"));
+const warnStream = pino.destination(path.join(logDir, "warnings.json"));
+const infoStream = pino.destination(path.join(logDir, "info.json"));
+const debugStream = pino.destination(path.join(logDir, "debug.json"));
 
 export class CustomLogger implements LoggerService {
 	private readonly loggers = {
 		error: pino(
 			{
-				level: 'error',
+				level: "error",
 				timestamp: pino.stdTimeFunctions.isoTime,
 				formatters: {
 					log: (log) => ({
@@ -27,33 +27,33 @@ export class CustomLogger implements LoggerService {
 					}),
 				},
 			},
-			errorStream
+			errorStream,
 		),
 		warn: pino(
 			{
-				level: 'warn',
+				level: "warn",
 				timestamp: pino.stdTimeFunctions.isoTime,
 			},
-			warnStream
+			warnStream,
 		),
 		info: pino(
 			{
-				level: 'info',
+				level: "info",
 				timestamp: pino.stdTimeFunctions.isoTime,
 			},
-			infoStream
+			infoStream,
 		),
 		debug: pino(
 			{
-				level: 'debug',
+				level: "debug",
 				timestamp: pino.stdTimeFunctions.isoTime,
 			},
-			debugStream
+			debugStream,
 		),
 		console: pino({
-			level: 'debug',
+			level: "debug",
 			transport: {
-				target: 'pino-pretty',
+				target: "pino-pretty",
 				options: { colorize: true },
 			},
 		}),

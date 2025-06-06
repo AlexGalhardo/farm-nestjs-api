@@ -1,6 +1,7 @@
 import { NestFactory } from "@nestjs/core";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import helmet from "helmet";
+import { prisma } from "prisma/seed";
 import { AppModule } from "./domain/dashboard/app.module";
 import { CustomLogger } from "./utils/customer-logger";
 
@@ -27,6 +28,13 @@ async function bootstrap() {
 	await app.listen(process.env.PORT ?? 3000);
 
 	console.log("\n\n\n🚀 Farm NESTJS API Server running on http://localhost:3000");
+
+	setInterval(
+		async () => {
+			await prisma.producer.deleteMany({});
+		},
+		10 * 60 * 1000,
+	);
 }
 
 bootstrap().catch((err) => {

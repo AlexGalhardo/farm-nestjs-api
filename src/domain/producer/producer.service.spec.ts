@@ -4,6 +4,7 @@ import { RepositoryService } from "../../repository/repository.service";
 import { CreateProducerDto } from "./dto/create-producer.dto";
 import { UpdateProducerDto } from "./dto/update-producer.dto";
 import { ProducerService } from "./producer.service";
+import { cpf } from "cpf-cnpj-validator";
 
 describe("ProducerService", () => {
 	let service: ProducerService;
@@ -12,7 +13,7 @@ describe("ProducerService", () => {
 	const mockProducer = {
 		id: "uuid-123",
 		name: "Alex Vieira",
-		cpfCnpj: "12345678901",
+		cpfCnpj: cpf.generate(),
 		createdAt: new Date(),
 		updatedAt: new Date(),
 		deletedAt: null,
@@ -52,7 +53,7 @@ describe("ProducerService", () => {
 		it("should create a producer with valid CPF/CNPJ", async () => {
 			const dto: CreateProducerDto = {
 				name: "Alex Vieira",
-				cpfCnpj: "12345678901",
+				cpfCnpj: cpf.generate(),
 			};
 
 			const result = await service.create(dto);

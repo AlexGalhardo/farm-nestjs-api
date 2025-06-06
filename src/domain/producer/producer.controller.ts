@@ -1,13 +1,13 @@
 import { BadRequestException, Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
+import { CustomLogger } from "../../utils/customer-logger";
 import { getErrorMessage, getErrorStack } from "../../utils/functions";
 import { CreateProducerDto } from "./dto/create-producer.dto";
 import { UpdateProducerDto } from "./dto/update-producer.dto";
 import { ProducerService } from "./producer.service";
-import { CustomLogger } from "src/utils/customer-logger";
 
 @Controller("producers")
 export class ProducerController {
-	private readonly logger = new CustomLogger()
+	private readonly logger = new CustomLogger();
 
 	constructor(private readonly producerService: ProducerService) {}
 
@@ -20,7 +20,7 @@ export class ProducerController {
 			this.logger.error("Error creating producer", getErrorStack(error));
 			throw new BadRequestException({
 				success: false,
-				error: getErrorMessage(error) || "Unknown error while creating producer",
+				error: JSON.parse(getErrorMessage(error)) || "Unknown error while creating producer",
 			});
 		}
 	}

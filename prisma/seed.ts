@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { faker } from "@faker-js/faker";
 
-const prisma = new PrismaClient();
+export const prisma = new PrismaClient();
 
 async function clearSeedData() {
 	await prisma.crop.deleteMany({
@@ -43,7 +43,7 @@ async function createSeedData() {
 	const states = ["MG", "SP", "GO", "RS", "MT"];
 	const crops = ["Soja", "Milho", "Algodão", "Trigo", "Café", "Arroz"];
 
-	for (let i = 0; i < 20; i++) {
+	for (let i = 0; i < 10; i++) {
 		const producer = await prisma.producer.create({
 			data: {
 				name: `SEED - ${faker.person.fullName()}`,
