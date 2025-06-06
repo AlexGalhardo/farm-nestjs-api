@@ -22,7 +22,8 @@ async function bootstrap() {
 	SwaggerModule.setup("api-docs", app, document);
 
 	await app.listen(process.env.PORT ?? 3000);
-	console.log("Farm NESTJS API Server running on http://localhost:3000");
+
+	console.log("\n\n\n🚀 Farm NESTJS API Server running on http://localhost:3000");
 }
 
 bootstrap().catch((err) => {

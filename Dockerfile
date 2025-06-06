@@ -1,12 +1,17 @@
-FROM node:20-alpine
+FROM node:22-alpine
 
 WORKDIR /app
 
 COPY package*.json ./
+
 RUN npm install
 
 COPY . .
 
+RUN cp .env.example .env
+
 RUN npx prisma generate
 
-CMD ["npm", "run", "start:dev"]
+RUN npm run test
+
+CMD ["sh", "-c", "npx prisma migrate dev --name init && npm run dev"]

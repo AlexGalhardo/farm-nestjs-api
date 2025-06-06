@@ -68,7 +68,7 @@ cp .env.example .env
 5. Create Migrations and Seeds
 
 ```bash
-chmod +x setup.sh && ./setup.sh
+sudo chmod +x setup.sh && ./setup.sh
 ```
 
 6. Start local server
