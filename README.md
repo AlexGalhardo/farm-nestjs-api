@@ -39,7 +39,7 @@ Manage the registration of rural producers with the following data:
 - [Docker](https://docs.docker.com/)
 - [PostgreSQL](https://www.postgresql.org/)
 
-## Development Setup Local
+## Development Setup using Docker
 
 1. Clone repository
 
@@ -65,17 +65,23 @@ npm install
 cp .env.example .env
 ```
 
-5. Create Migrations and Seeds
+5. Start Docker Postgres and build and up Docker Api Service
 
 ```bash
 sudo chmod +x setup.sh && ./setup.sh
 ```
 
-6. Start local server
+6. The Server API will start Inside docker connecting to your local machine at: <http://localhost:3000>
 
-```bash
-npm run dev
-```
+## Development Setup Localhost
+
+- After step 4 previously, comment `api` service in `docker-compose.yaml`
+- Setup in your `.env` the value: `DATABASE_URL="postgres://postgres:postgres@localhost:5432/farm_nestjs_api?schema=public"`
+- Run: `sudo docker-compose up` to up Postgres only
+- Run: `npm run prisma:migrate` to create migrations
+- If you wanna seed database, run: `npm run prisma:db:seed`
+- Start Server locally: `npm run dev`
+- Go to: <http://localhost:3000>
 
 ## Prisma Studio (DataBase GUI)
 
@@ -103,7 +109,7 @@ npm run start
 
 - You can see and use the HTTP Requests references inside folder [rest-client/](rest-client/)
 - OpenAPI Documentation (using Swagger)
-   - You can also see  API documentation in: <http://localhost:3000/api-docs>
+  - You can also see  API documentation in: <http://localhost:3000/api-docs>
 
 ### Example
 
@@ -168,15 +174,15 @@ a. Run all unit mocked tests
 npm run test
 ```
 
+<img width="930" alt="Screenshot 2025-06-06 at 14 25 07" src="https://github.com/user-attachments/assets/a68c9e62-ee3c-4340-a649-1deb14194a5a" />
+
 b. Run all end to end tests
 
 ```bash
 npm run test:e2e
 ```
 
-<img width="930" alt="Screenshot 2025-06-06 at 14 25 07" src="https://github.com/user-attachments/assets/a68c9e62-ee3c-4340-a649-1deb14194a5a" />
-
-<img width="924" alt="Screenshot 2025-06-06 at 14 25 22" src="https://github.com/user-attachments/assets/40ffbe88-f249-44db-a533-0602594d5bcc" />
+<img width="930" alt="Screenshot 2025-06-06 at 14 43 15" src="https://github.com/user-attachments/assets/a1510f34-6f70-4896-9123-e02267c4f4c0" />
 
 ## License
 
