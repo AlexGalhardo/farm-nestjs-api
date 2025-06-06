@@ -1,12 +1,13 @@
-import { BadRequestException, Body, Controller, Delete, Get, Logger, Param, Post, Put } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
 import { getErrorMessage, getErrorStack } from "../../utils/functions";
 import { CreateHarvestDto } from "./dto/create-harvest.dto";
 import { UpdateHarvestDto } from "./dto/update-harvest.dto";
 import { HarvestService } from "./harvest.service";
+import { CustomLogger } from "src/utils/customer-logger";
 
 @Controller("harvests")
 export class HarvestController {
-	private readonly logger = new Logger(HarvestController.name);
+	private readonly logger = new CustomLogger()
 
 	constructor(private readonly harvestService: HarvestService) {}
 

@@ -1,12 +1,13 @@
-import { BadRequestException, Body, Controller, Delete, Get, Logger, Param, Post, Put } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
 import { getErrorMessage, getErrorStack } from "../../utils/functions";
 import { CreateFarmDto } from "./dto/create-farm.dto";
 import { UpdateFarmDto } from "./dto/update-farm.dto";
 import { FarmService } from "./farm.service";
+import { CustomLogger } from "src/utils/customer-logger";
 
 @Controller("farms")
 export class FarmController {
-	private readonly logger = new Logger(FarmController.name);
+	private readonly logger = new CustomLogger()
 
 	constructor(private readonly farmService: FarmService) {}
 

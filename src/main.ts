@@ -2,9 +2,12 @@ import { NestFactory } from "@nestjs/core";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import helmet from "helmet";
 import { AppModule } from "./domain/dashboard/app.module";
+import { CustomLogger } from "./utils/customer-logger";
 
 async function bootstrap() {
-	const app = await NestFactory.create(AppModule);
+	const app = await NestFactory.create(AppModule, {
+		logger: new CustomLogger(),
+	});
 
 	app.enableCors({
 		origin: "*",

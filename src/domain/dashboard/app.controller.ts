@@ -1,10 +1,11 @@
-import { BadRequestException, Controller, Get, Logger } from "@nestjs/common";
+import { BadRequestException, Controller, Get } from "@nestjs/common";
 import { getErrorMessage, getErrorStack } from "../../utils/functions";
 import { AppService } from "./app.service";
+import { CustomLogger } from "src/utils/customer-logger";
 
 @Controller()
 export class AppController {
-	private readonly logger = new Logger(AppController.name);
+	private readonly logger = new CustomLogger()
 
 	constructor(private readonly appService: AppService) {}
 

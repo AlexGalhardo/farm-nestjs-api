@@ -1,12 +1,13 @@
-import { BadRequestException, Body, Controller, Delete, Get, Logger, Param, Post, Put } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
 import { getErrorMessage, getErrorStack } from "../../utils/functions";
 import { CreateProducerDto } from "./dto/create-producer.dto";
 import { UpdateProducerDto } from "./dto/update-producer.dto";
 import { ProducerService } from "./producer.service";
+import { CustomLogger } from "src/utils/customer-logger";
 
 @Controller("producers")
 export class ProducerController {
-	private readonly logger = new Logger(ProducerController.name);
+	private readonly logger = new CustomLogger()
 
 	constructor(private readonly producerService: ProducerService) {}
 
