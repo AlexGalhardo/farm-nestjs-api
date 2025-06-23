@@ -264,7 +264,27 @@ describe("AppService", () => {
 			},
 		]);
 
-		prisma.producer.findMany.mockResolvedValue([
+		type ProducerWithFarms = {
+			id: string;
+			name: string;
+			createdAt: Date;
+			updatedAt: Date;
+			deletedAt: Date | null;
+			cpfCnpj: string;
+			farms: Array<{
+				id: string;
+				name: string;
+				arableArea: number;
+				vegetationArea: number;
+				totalArea: number;
+				harvests: Array<{
+					year: string;
+					crops: Array<{ name: string; useArableArea: number }>;
+				}>;
+			}>;
+		};
+
+		const mockProducers: ProducerWithFarms[] = [
 			{
 				id: "p1",
 				name: "Produtor 1",
@@ -272,7 +292,6 @@ describe("AppService", () => {
 				updatedAt: new Date(),
 				deletedAt: null,
 				cpfCnpj: "00000000000",
-				// @ts-expect-error
 				farms: [
 					{
 						id: "f1",
@@ -299,7 +318,6 @@ describe("AppService", () => {
 				updatedAt: new Date(),
 				deletedAt: null,
 				cpfCnpj: "11111111111",
-				// @ts-expect-error
 				farms: [
 					{
 						id: "f2",
@@ -316,14 +334,17 @@ describe("AppService", () => {
 					},
 				],
 			},
-		]);
+		];
+
+		prisma.producer.findMany.mockResolvedValue(mockProducers as any);
 
 		const result = await service.getDashboard();
 
 		expect(result).toMatchObject({
-			"PRODUCER: Produtor 1": expect.objectContaining({
+			"00000000000": expect.objectContaining({
 				producerId: "p1",
 				producerName: "Produtor 1",
+				producerCpfCnpj: "00000000000",
 				totalFarms: 1,
 				totalCrops: 2,
 				totalArableArea: 60,
@@ -334,9 +355,10 @@ describe("AppService", () => {
 				farms: expect.any(Array),
 				allCrops: expect.any(Array),
 			}),
-			"PRODUCER: Produtor 2": expect.objectContaining({
+			"11111111111": expect.objectContaining({
 				producerId: "p2",
 				producerName: "Produtor 2",
+				producerCpfCnpj: "11111111111",
 				totalFarms: 1,
 				totalCrops: 1,
 				totalArableArea: 40,

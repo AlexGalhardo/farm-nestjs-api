@@ -18,5 +18,3 @@ sudo docker-compose down --volumes --remove-orphans
 
 echo "🔨 Building and starting services..."
 sudo docker-compose up --build
-
-echo "✅ Docker Compose PostgresDB and Farm NestJS API Setup complete!"

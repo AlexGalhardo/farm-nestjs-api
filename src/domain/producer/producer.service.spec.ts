@@ -1,10 +1,10 @@
 import { NotFoundException } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
+import { cpf } from "cpf-cnpj-validator";
 import { RepositoryService } from "../../repository/repository.service";
 import { CreateProducerDto } from "./dto/create-producer.dto";
 import { UpdateProducerDto } from "./dto/update-producer.dto";
 import { ProducerService } from "./producer.service";
-import { cpf } from "cpf-cnpj-validator";
 
 describe("ProducerService", () => {
 	let service: ProducerService;

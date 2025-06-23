@@ -1,51 +1,26 @@
 <h1 align="center"><a href="https://farm-nestjs-api.alexgalhardo.com" target="_blank">farm-nestjs-api.alexgalhardo.com</a></h1>
 
-## Data in the live endpoint is deleted every 10 minutes
-
-<img width="868" alt="Screenshot 2025-06-06 at 16 23 33" src="https://github.com/user-attachments/assets/442f0ba0-d6d9-4e26-b0c1-1c11268ef358" />
-
-<img width="585" alt="Screenshot 2025-06-06 at 16 23 51" src="https://github.com/user-attachments/assets/29a73be5-d846-4514-8d3e-fbf27a44158e" />
-
-## Objectives and Bussiness Rules
-
-Manage the registration of rural producers with the following data:
-
-- CPF or CNPJ (Brazilian individual or company taxpayer number)  
-- Producer's name  
-- Farm (property) name  
-- City  
-- State  
-- Total farm area (in hectares)  
-- Arable area (in hectares)  
-- Vegetation area (in hectares)  
-- Harvests (e.g., Harvest 2021, Harvest 2022)  
-- Planted crops (e.g., Soybean in Harvest 2021, Corn in Harvest 2021, Coffee in Harvest 2022)
-
-### **Business Requirements**
-
-1. Allow the creation, editing, and deletion of rural producers.  
-2. Validate the CPF or CNPJ provided by the user.  
-3. Ensure that the sum of the arable area and vegetation area does not exceed the total farm area.  
-4. Allow the registration of multiple crops per producer's farm.  
-5. A producer can be associated with 0, 1, or more rural properties.  
-6. A rural property can have 0, 1, or more crops planted per harvest.  
-7. Display a dashboard with:
-   - Total number of registered farms.  
-   - Total registered area (in hectares).  
-   - Pie charts:
-     - By state.  
-     - By planted crop.  
-     - By land use (arable area and vegetation).
+<https://github.com/user-attachments/assets/b6115a84-9af7-4400-b537-11df931a126c>
 
 ## Technologies
 
-- [NodeJS](https://nodejs.org/en)
-- [NestJS](https://nestjs.com/)
+- [NodeJS v22](https://nodejs.org/en)
+- [NestJS v11](https://nestjs.com/)
 - [PrismaORM](https://www.prisma.io/)
 - [Docker](https://docs.docker.com/)
 - [PostgreSQL](https://www.postgresql.org/)
 
-## Development Setup using Docker
+## Prerequisites
+
+- Node v22 and NPM v11
+
+```bash
+nvm install 22.9.0
+nvm use 22.9.0
+npm install -g npm@11.4.2
+```
+
+## Local Development Setup using Docker
 
 1. Clone repository
 
@@ -71,23 +46,13 @@ npm install
 cp .env.example .env
 ```
 
-5. Start Docker Postgres and build and up Docker Api Service
+5. UP Docker with Postgres & API
 
 ```bash
 sudo chmod +x setup.sh && ./setup.sh
 ```
 
 6. The Server API will start Inside docker connecting to your local machine at: <http://localhost:3000>
-
-## Development Setup Localhost
-
-- After step 4 previously, comment `api` service in `docker-compose.yaml`
-- Setup in your `.env` the value: `DATABASE_URL="postgres://postgres:postgres@localhost:5432/farm_nestjs_api?schema=public"`
-- Run: `sudo docker-compose up` to up Postgres only
-- Run: `npm run prisma:migrate` to create migrations
-- If you wanna seed database, run: `npm run prisma:db:seed`
-- Start Server locally: `npm run dev`
-- Go to: <http://localhost:3000>
 
 ## Prisma Studio (DataBase GUI)
 

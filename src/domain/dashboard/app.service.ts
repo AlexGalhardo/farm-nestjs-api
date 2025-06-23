@@ -70,6 +70,7 @@ export class AppService {
 			select: {
 				id: true,
 				name: true,
+				cpfCnpj: true,
 				farms: {
 					include: {
 						harvests: {
@@ -162,9 +163,10 @@ export class AppService {
 			const arablePercentage = total > 0 ? (arableSum / total) * 100 : 0;
 			const vegetationPercentage = total > 0 ? (vegetationSum / total) * 100 : 0;
 
-			producerStats[`PRODUCER: ${producer.name}`] = {
+			producerStats[`${producer.cpfCnpj}`] = {
 				producerId: producer.id,
 				producerName: producer.name,
+				producerCpfCnpj: producer.cpfCnpj,
 				totalFarms: farmsCount,
 				totalCrops: cropsCount,
 				totalArableArea: arableSum,

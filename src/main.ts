@@ -29,12 +29,18 @@ async function bootstrap() {
 
 	console.log("\n\n\n🚀 Farm NESTJS API Server running on http://localhost:3000");
 
-	setInterval(
-		async () => {
-			await prisma.producer.deleteMany({});
-		},
-		10 * 60 * 1000,
-	);
+	console.log("\n\n\n🚀 Swagger API Docs running on http://localhost:3000/api-docs");
+
+	if (process.env.AUTO_DELETE_DATA_FROM_DATABASE_EVERY_10_MINUTES === "true") {
+		console.log("\n\n\n--> IMPORTANT: All Data will be deleted every 10 minutes from database is ACTIVE!\n\n\n");
+
+		setInterval(
+			async () => {
+				await prisma.producer.deleteMany({});
+			},
+			10 * 60 * 1000,
+		);
+	}
 }
 
 bootstrap().catch((err) => {
